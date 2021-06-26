@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .s4{
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    {% extends 'Movies/base.html' %}
+
+    {% load bootstrap3 %}
+
+    {% block header %}
+        <h2>添加新电影:</h2>
+    {% endblock header %}
+
+
+    {% block content %}
+        <form action="{% url 'Movies:new_movie' %}" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+
+            {% buttons %}
+                <button name="submit" class="btn btn-primary">添加电影</button>
+            {% endbuttons %}
+        </form>
+    {% endblock content %}
+</body>
+</html>

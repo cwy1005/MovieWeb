@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul, h1,h3, li{
+            margin-left: 50px;
+        }
+    </style>
+    <style>
+        .line-limit-length {
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap; //文本不换行，这样超出一行的部分被截取，显示...
+        }
+    </style>
+</head>
+<body>
+    {% extends "Movies/base.html" %}
+
+    {% block header %}
+        <h1>电影</h1>
+    {% endblock header %}
+
+
+    {% block content %}
+
+        <ul>
+            {% for movie in movies %}
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3>
+                            <a href="{% url 'Movies:movie' movie.id %}">{{ movie }}</a>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <h4>电影简介：</h4>
+                        <h5 style="line-height:80px;" class="line-limit-length">
+                            {{ movie.introduction }}
+                        </h5>
+                    </div>
+                    <div class="panel-body">
+                        <h4>评分：{{ movie.grade }}</h4>
+                    </div>
+
+                </div>
+
+
+
+
+            {% empty %}
+                <li>还没有添加电影，请等待工作人员添加.</li>
+            {% endfor %}
+        </ul>
+        <h3 class="h3">
+                <a href="{% url 'Movies:new_movie' %}">添加新电影（仅限管理员可添加）</a>
+        </h3>
+
+
+    {% endblock content %}
+</body>
+</html>

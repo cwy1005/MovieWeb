@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .s1{
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    {% extends "Movies/base.html" %}
+    {% block content %}
+        <p class="s1"><a href="{% url 'Movies:movie' movie.id %}">电影名称：{{ movie }}</a></p>
+        <p class="s1">修改评论:</p>
+        <form action="{% url 'Movies:edit_comment' comment.id %}" method="post" class="s1">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button name="submit">保存</button>
+        </form>
+    {% endblock content %}
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends "Movies/base.html" %}
+{% block mainbody %}
+{% endblock %}
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .style_1{
+            margin-left: 50px;
+        }
+    </style>
+
+</head>
+
+<body style="background-image: url({% static 'movies/images/主页2.jpg' %});background-size:100% 150%;">
+
+    {% block header %}
+        <div class="jumbotron">
+            <h1 align="center"><font color="#2f4f4f">寻找有趣的电影.</font></h1>
+
+        </div>
+    {% endblock header %}
+
+    {% block content %}
+        {% if user.is_authenticated %}
+        {% else %}
+            <h2 class="style_1">
+                <a href="{% url 'users:register' %}">创建一个账户</a>
+                或者
+                <a href="{% url 'users:login' %}">
+                    登录你的账户
+                </a>开始你的电影之旅吧
+            </h2>
+
+        <h2 class="style_1">
+            寻找你感兴趣的电影~
+        </h2>
+        {% endif %}
+    {% endblock content %}
+</body>
+</html>

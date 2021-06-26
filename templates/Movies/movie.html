@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        h3{
+            margin-left: 50px;
+            margin-top: 70px;
+        }
+    </style>
+    <style>
+        h4{
+            margin-left: 50px;
+            margin-bottom: 30px;
+        }
+    </style>
+    <style>
+        .style_2{
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    {% extends 'Movies/base.html' %}
+
+    {% block header %}
+        <h2 id="top">{{ movie }}</h2>
+    {% endblock header %}
+
+    {% block content %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>电影简介：</h3>
+            </div>
+            <div class="panel-body" style="margin-left: 40px">
+                <h5 style="line-height:30px;">
+                    {{ movie.introduction }}
+                </h5>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>上映时间：</h3>
+            </div>
+            <div class="panel-body">
+                <h4>{{ movie.release_time }}</h4>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>评分：</h3>
+            </div>
+            <div class="panel-body">
+                <h4>{{ movie.grade }}</h4>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>评论(共{{ movie.com_num }}条):</h3>
+                <h4>
+                    <a href="{% url 'Movies:new_comment' movie.id %}">添加你的评论</a>
+                </h4>
+            </div>
+        </div>
+
+
+        <ul>
+        {% for comment in comments %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>
+                           {{ comment.added_time|date:'M d,Y H:i' }}
+
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <h5 style="line-height:30px;">
+                            {{ comment.text|linebreaks }}
+                        </h5>
+
+                        <small>
+                                <a href="{% url 'Movies:edit_comment' comment.id %}">
+                                    修改评论（只能修改自己的评论）
+                                </a>
+                        </small>
+                    </div>
+
+                </div>
+                <!-- panel -->
+        {% empty %}
+            <h4>还没有用户对这个电影做出评价,期待你的评价~</h4>
+        {% endfor %}
+        </ul>
+        <h4 class="style_2"><a href="#top">回到顶部</a></h4>
+    {% endblock content %}
+</body>
+</html>
